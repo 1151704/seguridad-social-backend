@@ -106,4 +106,3 @@ class SeguridadSocialBackendApplicationTests {
 //	      		.andExpect(jsonPath("$.cliente.identificacion", is(cliente.getIdentificacion())));
 //	}
 }
-
