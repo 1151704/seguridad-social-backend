@@ -51,8 +51,8 @@ public class ClienteController {
 	}
 
 	@PostMapping("crear")
-	public ResponseEntity<SsptCliente> crearCliente(@RequestBody SsptCliente cliente) {
-		return new ResponseEntity<>(service.guardar(cliente),HttpStatus.OK);
+	public SsptCliente crearCliente(@RequestBody SsptCliente cliente) {
+		return service.guardar(cliente);
 	}
 	
 	@GetMapping("porId/{id}")

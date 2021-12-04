@@ -40,7 +40,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors()
 				.configurationSource(corsConfigurationSource).and().csrf().disable().authorizeRequests().and()
 				.authorizeRequests()
-				.antMatchers( "/api/clientes/crear","/h2/**","api/ordenes/generarTodos","/api/plan/todos" ,"/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual", 
+				.antMatchers("/api/clientes/crear","/h2/**","api/ordenes/generarTodos","/api/plan/todos" ,"/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual",
 						"/api/plan/activos", "/api/actividades/todos", "/api/tipoDeClientes/todos", "/api/clientes/porCedula/**", 
 						"/api/departamento/todos", "/api/municipio/getPorDepartamento/**", "/api/file/**", "/api/ordenes/**", "/api/solicitudes/**", "/api/empresa/actual")
 				.permitAll()
