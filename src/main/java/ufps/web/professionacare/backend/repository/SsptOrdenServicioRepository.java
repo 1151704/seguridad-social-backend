@@ -42,4 +42,6 @@ public interface SsptOrdenServicioRepository extends CrudRepository<SsptOrdenSer
 			+ "sol.fecha_orden desc", nativeQuery=true)
 	public List<SsptOrdenServicio> findByFechaBetweenAndEstadoAsesor(Date fechaInicio, Date fechaFinal, Integer estado, Integer idAsesor);
 	
+
+	
 }

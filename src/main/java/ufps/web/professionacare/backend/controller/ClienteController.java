@@ -1,14 +1,18 @@
 package ufps.web.professionacare.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ufps.web.professionacare.backend.container.ClienteEntrada;
 import ufps.web.professionacare.backend.container.ClientesApi;
 import ufps.web.professionacare.backend.container.ConsultaOrdenApi;
 import ufps.web.professionacare.backend.enums.EstadoCliente;
@@ -25,11 +29,11 @@ public class ClienteController {
 	@Autowired
 	private SsptClienteService service;
 
-	@Autowired
-	private SsptOrdenServicioService ordenesService;
 
 	@Autowired
 	private SsptUsuarioService usuarioService;
+	
+	
 
 
 	@GetMapping("todos")
@@ -55,6 +59,7 @@ public class ClienteController {
 	public ConsultaOrdenApi GetPorCedula(@PathVariable String cedula) {
 		ConsultaOrdenApi api = new ConsultaOrdenApi();
 		api.setCliente(service.GetPorCedula(cedula));
+		
 		//api.setOrden(ordenesService.getByCliente(api.getCliente()));
 		return api;
 	}
@@ -64,6 +69,17 @@ public class ClienteController {
 		SsptCliente cli = this.GetPorId(id);
 		cli.setEstadoCliente(EstadoCliente.valueOf(estado));
 		return service.guardar(cli);
+	}
+	
+	
+	//Falta implementar
+	@PostMapping("guardar")
+	public SsptCliente guardar(@RequestBody ClienteEntrada c) {
+		SsptCliente cliente= new SsptCliente();
+		cliente.setApellido1(c.getApellido1());
+		cliente.setApellido2(c.getApellido2());
+		return cliente;
+		
 	}
 
 

@@ -2,14 +2,18 @@ package ufps.web.professionacare.backend.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -67,6 +71,10 @@ public class SsptUsuario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_rol", referencedColumnName = "id")
 	private SsptRol rol;
+	
+	@OneToMany( mappedBy="asesor", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@Column(name="cuentas_cobro")
+	private Set<SsptCuentaCobro> cuentasCobro;
 
 	@PrePersist
 	protected void prePersist() {
