@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufps.web.professionacare.backend.container.CuentaCobroGenerar;
+import ufps.web.professionacare.backend.enums.EstadoOrden;
 import ufps.web.professionacare.backend.model.SsptCuentaCobro;
 import ufps.web.professionacare.backend.model.SsptOrdenServicio;
 import ufps.web.professionacare.backend.model.SsptUsuario;
@@ -87,12 +89,25 @@ public class CuentaCobroController {
 		
 		cuenta.setTotal(repo.findByAsesor(cu.getId_asesor(), fechaInicio, fechaFinal)*12000);
 		cuenta.setAsesor(service.buscarPorId(cu.getId_asesor()));
-		
+		cuenta.setEstadoOrden(EstadoOrden.PENDIENTE);
 		
 		return repo.save(cuenta);
 		
 		
 		
+	}
+	
+	@GetMapping("/pagar/{id}")
+	public SsptCuentaCobro pagar(@PathVariable Long id) {
+		
+		SsptCuentaCobro cuenta = repo.findById(id).orElse(null);
+		
+		if(cuenta != null) {
+			cuenta.setEstadoOrden(EstadoOrden.PAGADA);
+			return repo.save(cuenta);
+		}
+		
+		return null;
 	}
 
 }

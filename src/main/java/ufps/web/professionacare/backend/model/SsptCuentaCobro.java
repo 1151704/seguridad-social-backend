@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import ufps.web.professionacare.backend.enums.EstadoOrden;
 
 @Entity
 @Table(name="sspt_cuenta_cobro")
@@ -29,6 +33,10 @@ public class SsptCuentaCobro {
 	
 	@Column(nullable=false)
 	private float total;
+	
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "estado_orden", nullable = true)
+	private EstadoOrden estadoOrden;
 	
 	@Column(name = "fecha_orden", nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -46,6 +54,15 @@ public class SsptCuentaCobro {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+
+	public EstadoOrden getEstadoOrden() {
+		return estadoOrden;
+	}
+
+	public void setEstadoOrden(EstadoOrden estadoOrden) {
+		this.estadoOrden = estadoOrden;
 	}
 
 	public SsptUsuario getAsesor() {
