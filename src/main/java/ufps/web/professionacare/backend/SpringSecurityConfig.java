@@ -36,10 +36,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+        
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors()
 				.configurationSource(corsConfigurationSource).and().csrf().disable().authorizeRequests().and()
 				.authorizeRequests()
+
 				.antMatchers( "/api/cuenta_cobro/guardarr","/api/cuenta_cobro/guardar","api/ordenes/generarTodos","/api/plan/todos" ,"/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual", 
+
+				"/api/clientes/crear","/h2/**","api/ordenes/generarTodos","/api/plan/todos" ,"/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual",
+
 						"/api/plan/activos", "/api/actividades/todos", "/api/tipoDeClientes/todos", "/api/clientes/porCedula/**", 
 						"/api/departamento/todos", "/api/municipio/getPorDepartamento/**", "/api/file/**", "/api/ordenes/**", "/api/solicitudes/**", "/api/empresa/actual")
 				.permitAll()
@@ -47,7 +52,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticated().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
 				.addFilter(new JWTAuthenticationFilter(epsAuthenticationManager, jwtService))
 				.addFilter(new JWTAuthorizationFilter(epsAuthenticationManager, jwtService));
-
+		http.csrf().disable();
 		http.headers().frameOptions().disable();
 	}
 

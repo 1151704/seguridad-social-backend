@@ -32,9 +32,6 @@ public class EpsAuthenticationManager implements AuthenticationManager {
 		String username = authentication.getPrincipal().toString();
 		String password = authentication.getCredentials().toString();
 
-		@SuppressWarnings("unchecked")
-		HashMap<String, Object> details = (HashMap<String, Object>) authentication.getDetails();
-
 		SsptUsuario respuesta = usuarioService.buscarPorUsername(username);
 
 		if (respuesta == null) {
@@ -51,9 +48,9 @@ public class EpsAuthenticationManager implements AuthenticationManager {
 			throw new BadCredentialsException("Contraseña o nombre de usuario invalidos");
 		}
 
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		List<GrantedAuthority> authorities = new ArrayList<>();
 
-		details = new HashMap<>();
+		HashMap<String, Object> details = new HashMap<>();
 
 		details.put("token", respuesta);
 

@@ -7,6 +7,8 @@ import io.jsonwebtoken.security.Keys;
 
 public class ConstantsAuth {
 
+	private ConstantsAuth() {}
+	
 	// Spring Security
 	public static final String LOGIN_URL = "/login";
 	public static final String HEADER_AUTHORIZACION_KEY = "Authorization";

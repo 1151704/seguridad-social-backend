@@ -149,7 +149,7 @@ public class SolicitudAfiliacionController {
 		try {
 
 			// Verificar si ya existe
-			SsptCliente cliente = clienteService.GetPorCedula(entrada.getIdentificacion());
+			SsptCliente cliente = clienteService.getPorCedula(entrada.getIdentificacion());
 
 			SsptTipoIdentificacion tipoId = tipoIdentificacionService.buscarPorId(entrada.getIdTipoIdentificacion());
 			SsptTipoCliente tipoCliente = tipoClienteService.buscarPorId(entrada.getIdTipoCliente());

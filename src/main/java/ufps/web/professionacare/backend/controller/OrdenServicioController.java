@@ -35,7 +35,7 @@ public class OrdenServicioController {
 
 		SsptOrdenServicio orden = new SsptOrdenServicio();
 
-		SsptCliente cliente = clienteService.GetPorId(entrada.getIdCliente());
+		SsptCliente cliente = clienteService.getPorId(entrada.getIdCliente());
 		if (cliente != null) {
 			orden.setCliente(cliente);
 			orden.setPrecio(cliente.getPlan().getPrecio());
@@ -63,7 +63,7 @@ public class OrdenServicioController {
 	@GetMapping("/generarTodos")
 	public boolean generarOrdenes() {
 		System.out.print("se ejecutó");
-		List<SsptCliente> clientes = clienteService.Get();
+		List<SsptCliente> clientes = clienteService.get();
 
 		EstadoCliente estado = EstadoCliente.AFILIADO;
 		try {
@@ -89,7 +89,7 @@ public class OrdenServicioController {
 	@GetMapping("/generarOrden/{cedula}")
 	public boolean generarOrdenPorId(@PathVariable String cedula) {
 		System.out.print("se ejecutó");
-		SsptCliente cliente = clienteService.GetPorCedula(cedula);
+		SsptCliente cliente = clienteService.getPorCedula(cedula);
 		EstadoCliente estado = EstadoCliente.AFILIADO;
 
 		try {

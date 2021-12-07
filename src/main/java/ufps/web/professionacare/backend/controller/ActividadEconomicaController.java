@@ -24,7 +24,7 @@ public class ActividadEconomicaController {
 	@GetMapping("todos")
 	public ResponseEntity<List<SsptActividadEconomica>> getDepartamentos() {
 
-		List<SsptActividadEconomica> api = new ArrayList<SsptActividadEconomica>();
+		List<SsptActividadEconomica> api = new ArrayList<>();
 
 		try {
 			api = service.listarTodos();

@@ -22,17 +22,18 @@ import ufps.web.professionacare.backend.auth.ConstantsAuth;
 @Component
 public class JWTServiceImpl implements JWTService {
 
-	private Logger LOG = LoggerFactory.getLogger(JWTServiceImpl.class);
+	private Logger log = LoggerFactory.getLogger(JWTServiceImpl.class);
 
 	@Override
 	public String create(Authentication auth) throws IOException {
 
 		String username = auth.getName();
 
+		@Deprecated
 		Date inicio = new Date();
+		@Deprecated
 		Date fin = new Date(inicio.getTime() + ConstantsAuth.TOKEN_EXPIRATION_TIME);
 
-		@SuppressWarnings("unchecked")
 		Map<String, Object> data = (Map<String, Object>) auth.getDetails();
 
 		Claims claims = Jwts.claims();
@@ -40,6 +41,7 @@ public class JWTServiceImpl implements JWTService {
 		claims.put("nit", data.get("nit"));
 		claims.put("role", data.get("role"));
 
+		@Deprecated
 		String token = Jwts.builder().setClaims(claims).setSubject(username).setIssuedAt(inicio).setExpiration(fin)
 				.signWith(ConstantsAuth.SECRET_KEY).compact();
 
@@ -50,10 +52,9 @@ public class JWTServiceImpl implements JWTService {
 	public Claims getClaims(String token) {
 
 		try {
-			Jws<Claims> c = Jwts.parser().setSigningKey(ConstantsAuth.SECRET_KEY).parseClaimsJws(revolve(token));
-			return c.getBody();
+			return Jwts.parser().setSigningKey(ConstantsAuth.SECRET_KEY).parseClaimsJws(revolve(token)).getBody();
 		} catch (JwtException e) {
-			LOG.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 		return null;
 	}

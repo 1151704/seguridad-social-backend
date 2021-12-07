@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +23,13 @@ import ufps.web.professionacare.backend.auth.ConstantsAuth;
 import ufps.web.professionacare.backend.auth.EpsAuthenticationToken;
 import ufps.web.professionacare.backend.auth.UserLogin;
 import ufps.web.professionacare.backend.auth.service.JWTService;
+import ufps.web.professionacare.backend.exceptions.DefaultException;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private AuthenticationManager authenticationManager;
 
 	private JWTService jwtService;
-
-	private UserLogin credenciales = null;
 
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTService jwtService) {
 		this.authenticationManager = authenticationManager;
@@ -39,23 +39,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
-
 		try {
 			ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
 					false);
 
-			credenciales = mapper.readValue(request.getInputStream(), UserLogin.class);
+			UserLogin credenciales = mapper.readValue(request.getInputStream(), UserLogin.class);
 
 			Map<String, Object> details = new HashMap<>();
 
 			return authenticationManager.authenticate(new EpsAuthenticationToken(credenciales.getUsername(),
 					credenciales.getPassword(), details, new ArrayList<>()));
-
-			
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+		} catch (Exception e) {
+			throw new DefaultException("No se pudo autenticar.");
 		}
-
 	}
 
 	@Override

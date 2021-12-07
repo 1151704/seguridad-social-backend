@@ -49,8 +49,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			List<GrantedAuthority> roles = new ArrayList<>();
 			try {
 				roles = (List<GrantedAuthority>) jwtService.getRoles(header);
-			} catch (IOException e) {
 			} catch (Exception e) {
+				logger.warn("Error al obtener roles",e);
 			}
 
 			authentication = new EpsAuthenticationToken(username, null, jwtService.getClaims(header), roles);
