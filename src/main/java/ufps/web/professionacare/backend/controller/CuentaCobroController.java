@@ -109,5 +109,12 @@ public class CuentaCobroController {
 		
 		return null;
 	}
+	
+	@GetMapping("/todos")
+	public List<SsptCuentaCobro> getAll(){
+		
+		return (List<SsptCuentaCobro>) repo.findAll();
+		
+	}
 
 }
