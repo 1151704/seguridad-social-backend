@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.configurationSource(corsConfigurationSource).and().csrf().disable().authorizeRequests().and()
 				.authorizeRequests()
 
-				.antMatchers( "/api/cuenta_cobro/pagar/**", "/api/cuenta_cobro/guardar","api/ordenes/generarTodos","/api/plan/todos" ,"/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual", 
+				.antMatchers("/api/cuenta_cobro/todos", "/api/cuenta_cobro/pagar/**", "/api/cuenta_cobro/guardar","api/ordenes/generarTodos","/api/plan/todos" ,"/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual", 
 
 				"/api/clientes/crear","/h2/**","api/ordenes/generarTodos","/api/plan/todos" ,"/", "/validate", "/files/**", "/images/**", "/favicon.ico", "/api/empresa/actual",
 
